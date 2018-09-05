@@ -4,4 +4,4 @@
 
 - 핵심 개념
     - [자바스크립트에 대하여](/core/about-javascript.md)
-    - [변수]()
+    - [변수](/core/variable.md)
