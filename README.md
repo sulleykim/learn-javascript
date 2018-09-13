@@ -8,3 +8,4 @@
 
 - 알고리즘
     - [기본 알고리즘](/algorithmus/basic.md)
+    - [기본 알고리즘](/algorithmus/basic_algorithmus.md)
