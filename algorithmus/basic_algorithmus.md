@@ -385,8 +385,7 @@ do {
 
 
 function cardConvRstrPrint(x, r) {
-    var index = 0,
-        str = "",
+    var str = "",
         dchar = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     do {
@@ -412,10 +411,11 @@ console.log("2진수로 " + cardConvRstrPrint(input, cd) + " 입니다.");
  * @return {void}
  */
 function primeNumber() {
-    var i, j, count = 0;
+    var i, j, counter = 0;
+
     for(i = 2; i < 1000; i++) {
         for(j = 2; j < i; j++) {
-            count++;
+            counter++;
             if(i % j == 0) break;
         }
 
@@ -423,7 +423,213 @@ function primeNumber() {
             console.log(i);
         }
     }
-    console.log(count);
+    console.log(counter);
 }
 primeNumber();
+```
+
+### 소수 알고리즘 개선
+
+> 2부터 n - 1까지의 어떤 소수로도 나누어떨어지지 않습니다.
+
+예를 들어 7이 소수인지는 7보다 작은 소수인 2,3,5로 나눗셈을 하면 충분합니다.
+
+```javascript
+/**@description 알고리즘 개선 Ver.1
+ * @return {void}
+ */
+function primeNumber() {
+    var counter = 0, 
+        i, j, k, ptr = 0, 
+        prime = new Array(500);
+
+    prime[ptr++] = 2; // 2는 소수임
+
+    for(i = 3; i <= 1000; i += 2) { // 대상은 홀수만 -> 2를 제외한 모든 짝수는 소수가 아니다
+        for(j = 1; j < ptr; j++) {
+            counter++;
+            if(i % prime[j] == 0) {
+                break;
+            }
+        }
+        if(ptr == j) {
+            prime[ptr++] = i;
+        }
+    }
+
+    for(k = 0; k < ptr; k++) {
+        console.log(prime[k]);
+    }
+    console.log(counter);
+}
+
+primeNumber();
+```
+
+#### 알아야하는 것
+
+- 2를 제외한 짝수는 소수가 아니므로 소수 검사 제외
+
+#### 다시 한번 이해하면서 연습
+
+```javascript
+var primeNumber = function() {
+    var counter = 0,
+        i, j, k, ptr = 0,
+        prime = new Array(500);
+
+    prime[ptr++] = 2; // 2는 소수
+    /*
+        2를 제외한 짝수는 소수가 아니므로 소수 검사 제외
+    */
+    for(i = 3; i <= 1000; i += 2) {
+        /*
+            prime[]에는 소수가 담겨있으며 prime에 있는 소수 값으로 나누어 떨어지지 않으면 소수이다.
+        */
+        for(j = 1; j < ptr; j++) {
+            if(i % prime[j] == 0) {
+                break;
+            }
+        }
+        /*
+            마지막까지 나누어떨어지지 않으므로 소수라고 배열에 저장
+        */
+        if(ptr == j) { // 소수
+            prime[ptr++] = i;
+        }
+    }
+}
+```
+
+### 소수 알고리즘 개선 (TODO: 다시보기)
+
+> n의 제곱근 이하의 어떤 소수로도 나누어떨어지지 않습니다.
+> prime[i]의 제곱이 n 이하인가?
+
+```javascript
+var primeNumber = function() {
+    var counter = 0,
+        i, j, k, ptr = 0,
+        prime = new Array(500);
+
+    prime[ptr++] = 2; // 2는 소수
+    prime[ptr++] = 3; // 3은 소수
+
+    for(i = 5; i <= 1000; i += 2) {
+        var flag = false;
+        for(j = 1; prime[j] * prime[j] <= i; j++) {
+            counter += 2;
+            if(i % prime[j] == 0) {
+                flag = true;
+                break;
+            }
+        }
+        if(!flag) {
+            prime[ptr++] = i;
+            counter++;
+        }
+    }
+}
+```
+
+### 에라토스테네스의 체 이해하기 (TODO : 더 공부하기)
+
+```javascript
+var primeNumber = function() {
+    var prime = new Array(500).fill(false);
+
+    for(var i = 2; i < prime.length; i++) {
+        if(!prime[i]) console.log(i);
+        for(var j = 2 * i; j <= prime.length; j += i) {
+            prime[j] = true;
+        }
+    }
+}
+primeNumber();
+```
+
+위의 방법으로 소수를 구할 수 있지만 효율성이 좋지 않은 듯하다.
+
+### 한 해의 경과 일 수를 계산하는 프로그램
+
+2차원 배열을 활용하여 어떤 날짜의 **그 해의 경과 일 수**를 구해보겠습니다. 그런데, 2월의 일 수는 평년은 28일, 윤년은 29일로 해에 따라 달라집니다.
+
+```javascript
+var mdays = [
+    [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], // 평년
+    [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] // 윤년
+];
+```
+
+#### 해당 연도가 윤년인가? 평년인가? 구분하는 함수
+
+```javascript
+var isLeap = function(year) {
+    return (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) ? 1 : 0;
+}
+```
+
+#### 프로그램
+
+```javascript
+
+var input, year, month, day;
+
+console.log("그 해 경과 일수를 구합니다.");
+
+do {
+    console.log("년 : "); year = parseInt(prompt());
+    console.log("월 : "); month = parseInt(prompt());
+    console.log("일 : "); day = parseInt(prompt());
+    
+    console.log("그 해" + dayOfYear(year, month, day) + "입니다.");
+    console.log("한 번 더 하시겠어요?");
+    input = parseInt(prompt());
+} while(input == 1);
+
+/**@description dayOfYear
+ * @param {Number}
+ * @param {Number}
+ * @param {Number}
+ * @return {Number}
+ */
+function dayOfYear(year, month, day) {
+    var days = day, i;
+
+    for(i = 0; i < month; i++) {
+        days += mdays[isLeap(year)][i];
+    }
+
+    return days;
+}
+```
+
+#### 더 복잡한 데이터 구조
+
+```javascript
+var PhysicalExamination = (function() {
+
+    var PhysicalExamination = function(name, height, vision) {
+        this.name = name;
+        this.height = height;
+    }
+
+    PhysicalExamination.prototype = {
+        printAll: function() {
+            console.log(this.name + "," + this.height);
+        }
+    }
+
+    return PhysicalExamination;
+})();
+
+var student = [
+    new PhysicalExamination("ryu", 200),
+    new PhysicalExamination("suzy", 180),
+    new PhysicalExamination("han", 150)
+], index;
+
+for(index in student) {
+    student[index].printAll();
+}
 ```
