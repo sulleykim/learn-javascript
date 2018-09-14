@@ -200,3 +200,171 @@ for (i = 0; i < tabs.length; i++) {
 
 ### 값에 의한 호출과 참조에 의한 호출
 
+```javascript
+function fn(arg1, arg2) {
+    console.log(arg1, arg2);
+}
+```
+
+매개변수로 함수, 객체, 기본 값을 받을 수 있다. 자바스크립트의 타입에 대해 자세히 알고 있지 않다면 아래를 참고하자.
+
+- 기본 타입
+    - null
+    - undefined
+    - Boolean
+    - Number
+    - String
+
+- 참조 타입
+    - 객체
+    - 함수
+    - 배열
+
+두 타입의 차이는 무엇일까? 아래 예제를 살펴보면 이해가 쉽다.
+
+```javascript
+var a = 1;
+var b = a;
+b = 2;
+
+console.log(a) // ?
+```
+
+기본 타입을 새로운 변수를 선언하여 대입하는 예제이다. 콘솔창에는 무엇이 출력될까? 당연히 `a = 1`이다. 놀랍지도 않은 당연한 사실이다. 하지만 참조 타입으로 새로운 변수를 선언하여 대입하는 경우 다른 결과가 나온다.
+
+```javascript
+var ryu = {
+    job: "student",
+    age: 25
+};
+
+var suzy = ryu;
+suzy.age: 30
+
+console.log(ryu); // ?
+```
+
+객체는 참조타입이다. 콘솔창을 살펴보면 `ryu`의 `age`값이 30으로 변경되는 것을 확인할 수 있다. 왜 `suzy`의 `age`값의 변경이 `ryu`에 영향을 주는 것일까? 그 이유는 `ryu`와 `suzy` 모두 동일한 주소(레퍼런스)를 가리키고 있기 때문이다. 이는 배열에서도 동일하다. 이런 특징 때문에 기존 참조타입을 새로운 변수에 대입하는 경우에 깊은 복사를 사용하여 다른 주소를 가리키도록 하여 별도로 복사를 할 수가 있다. 위에서 살펴보았듯이 기본 타입과 참조 타입의 특성은 매개변수에 대입하였을 때도 동일한 결과가 나온다. 아래 예제를 살펴보자.
+
+```javascript
+var primitive = 1;
+var wrapper = {
+    name: "han",
+    age: 25
+};
+
+/*
+    1, { name: "han", age: 25 };
+*/
+console.log(primitive, wrapper);
+
+function fn(pri, obj) {
+    var a = pri;
+    a = 3;
+    var b = obj;
+    b.age = 30;
+}
+
+fn(primitive, wrapper)
+
+/*
+    1, { name: "han", age: 30 };
+*/
+console.log(primitive, wrapper);
+```
+
+앞서 살펴본 **기본 타입과 참조타입**에 대해서 잘 숙지하였다면 해당 소스코드를 이해할 수 있을 것이다. 이것이 **참조엥 의한 호출과 값에 의한 호출**의 차이점이다.
+
+## 중첩 함수
+
+자바스크립트에서는 함수 안에 함수를 만들 수 있다. 이를 **중첩 함수**라고 한다. 
+
+```javascript
+function outer() {
+
+    function inner() {
+        console.log("inner");
+    }
+    inner();
+}
+outer();
+```
+
+**중첩 함수**의 특징은 `inner()`함수는 `outer()`에서만 호출할 수 있다는 것이다. 흡사 **private 함수**라고 볼수도 있다!
+
+## 함수 호출 방법
+
+1. 함수 호출
+
+```javascript
+var s = square(5);
+```
+
+2. 메서드 호출
+```javascript
+obj.m = function() {};
+obj.m();
+```
+
+3. 생성자 호출
+
+```javascript
+var obj = new Object();
+```
+
+4. call, apply를 사용한 간접 호출
+```javascript
+function sum(a, b) {
+    return a + b;
+}
+
+sum.apply(this, [1,2]);
+```
+
+자바스크립트 함수도 객체이다. 그러면 자연스럽게 프로퍼티와 메소드가 있겠구나! 라고 추측할 수 있다. 한번 확인해보자.
+
+```javascript
+function sum(a, b) {
+    return a + b;
+}
+/*
+    ƒ sum(a, b)
+    caller
+    length
+    name
+    prototype
+    {constructor: ƒ}
+    __proto__
+        ƒ bind()
+        ƒ call()
+        f apply()
+*/
+console.dir(sum);
+```
+
+우리가 주목하는 메서드는 `call(), apply()`이다. 함수를 `sum()`를 호출하지 않더라도 함수의 메소드로도 함수 호출을 할 수 있다. 그러면 기존 호출과 `call(), apply()`를 사용한 호출은 무엇이 다를까? **자바스크립트 this**에 대해서 잘 아는가? 자바스크립트 this는 자바스크립트의 중요한 개념중에 하나이다. 이유는 실행되는 환경에 따라서 `this`가 다르기 때문이다. 이에 대해서는 별도의 글을 준비하겠다.
+어째든 `call(), apply()`를 사용하면 실행 환경에 따라 정해진 `this`를 사용자가 임의로 정해줄 수 있다. 
+
+## 즉시 실행 함수
+
+```javascript
+(function() {
+    //
+}());
+```
+
+자바스크립트 라이브러리나 프레임워크를 살펴보면 위의 소스코드를 많이 볼 수 있다. 해당 방법은 **즉시 실행 함수**라고 한다. 이 방법을 사용하는 이유는 전역 유효 범위를 오염시키지 않을 때 사용한다. 자바스크립트는 웹의 특수성(다양한 라이브러리 사용)으로 인해서 전역 변수 사용을 엄격히 해야할 필요가 있다.
+
+## 함수의 인수 `arguments`
+
+함수 호출시 매개변수의 갯수가 정해지지 않은 경우에 `arguments`를 사용할 수 있다. 실제 함수에서도 배열과 유사하게 접근이 가능한데, 이런 배열과 유사한 접근방식에 의해서 `arguments`가 배열이다라고 생각하는 경우가 있다. 그런 것이 실제 `arguments`의 프로퍼티를 보면 배열과 유사한 부분이 많다. 일단 `length`도 존재하기 때문이다. 하지만 배열이 아니다. 그 이유는 `arguments`의 **__proto**가 `Object`이고 배열은 `Array`이기 때문이다. 그러므로 `arguments`에서는 당연히 배열 메소드를 사용할 수 없다. 하지만 사용하는 방법이 있다. 이 방법을 알아두면 유용하다.
+
+```javascript
+function fn(){
+    var args = Array.prototype.slice.call(arguments);
+    console.log(args); // [1,2,3]
+    args.push(4);
+    console.log(args); // [1,2,3,4]
+}
+fn(1,2,3);
+```
