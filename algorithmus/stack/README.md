@@ -8,6 +8,8 @@
 
 ### 스택 만들기 (기본)
 
+자바스크립트에서 해당 방법은 장점이 없을 것 같지만 연습삼아 작성해본다. 
+
 ```javascript
 var Stack = (function() {
     // private 
