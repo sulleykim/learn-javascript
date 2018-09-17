@@ -368,3 +368,29 @@ function fn(){
 }
 fn(1,2,3);
 ```
+
+## 고차함수
+
+함수를 인수로 받는 함수 또는 함수를 반환하는 함수를 말합니다. 자바스크립트 함수는 일급 객체고 함수의 인자로 함수를 넘길 수 있으며 함수를 반환할 수 있으므로 **고차함수**를 쉽게 정의할 수 있습니다.
+
+```javascript
+var digits = "",
+    i;
+
+for(i = 0; i < 10; i++) {
+    digits += i;
+}
+
+console.log(digits);
+
+function joinStrings(n, f){
+    var s = "",
+        i;
+    for(i = 0; i < n; i++) {
+        s += f(i);
+    }
+    return s;
+}
+
+var testDigits = joinStrings(10, function(i) { return i; });
+```
