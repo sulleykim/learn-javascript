@@ -13,9 +13,11 @@
 
 - 패턴
     - [pub/sub pattern](/pattern/pubsub)
+    - [mvc pattern](/pattern/mvc)
 
 - 알고리즘
     - [기본 알고리즘](/algorithmus/basic.md)
     - [기본 알고리즘](/algorithmus/basic_algorithmus.md)
     - [검색](/algorithmus/search.md)
     - [스택](/algorithmus/stack/README.md)
+    - [큐](/algorithmus/queue/README.md)
