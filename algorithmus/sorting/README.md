@@ -140,3 +140,29 @@ console.log(arr);
 bubbleSort(arr);
 console.log(arr);
 ```
+
+### 개선하기
+
+지금까지 우리가 작성한 로직은 검사를 원하는 남은 배열이 이미 정렬된 상태여도 비교작업을 한다. 이미 정렬된 상태인 경우에는 정렬 작업을 끝내도록 개선하자.
+
+```javascript
+function bubbleSort(arr) {
+    var i, j,
+        len = arr.length,
+        temp,
+        exchange;
+
+    for(i = 0; i < len - 1; i++) {
+        exchange = 0;
+        for(j = len - 1; j > i; j--) {
+            if(arr[j - 1] > arr[j]) {
+                temp = arr[j]; 
+                arr[j] = arr[j - 1];
+                arr[j - 1] = temp;
+                exchange++;
+            }
+        }
+        if(exchange == 0) break;
+    }
+}
+```
