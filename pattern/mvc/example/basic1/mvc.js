@@ -3,7 +3,6 @@ function View(controller){
     this.heading = document.getElementById('heading');
     this.heading.innerHTML = this.controller.getModelHeading();
     this.heading.addEventListener('click', controller);
-    this.heading.addEventListener('mouseover', controller);
 }
 
 function Model() {
@@ -11,28 +10,25 @@ function Model() {
 }
 
 function Controller(model){
-    var self = this;
     this.model = model;
     this.handleEvent = function(e){
         e.stopPropagation();
         switch(e.type){
             case "click":
                 console.log("click");
-                self.clickHandler(e.target);
-                break;
-            case "mouseover":
-                console.log("mouseover")
+                console.log(this);
+                this.clickHandler(e.target);
                 break;
             default:
                 console.log(e.target);
         }
     }
     this.getModelHeading = function(){
-        return self.model.heading;
+        return this.model.heading;
     }
     this.clickHandler = function(target){
-        self.model.heading = 'World';
-        target.innerText = self.getModelHeading();
+        this.model.heading = 'World';
+        target.innerText = this.getModelHeading();
     }
 }
 
