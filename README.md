@@ -23,3 +23,7 @@
     - [스택](/algorithmus/stack/README.md)
     - [큐](/algorithmus/queue/README.md)
     - [재귀 함수](/algorithmus/recursive/README.md)
+    - [정렬](/algorithmus/sorting/README.md)
+        - [버블](/algorithmus/sorting/bubble)
+        - [선택](/algorithmus/sorting/selection)
+        - [삽입](/algorithmus/sorting/insertion)
