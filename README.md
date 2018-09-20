@@ -8,6 +8,7 @@
     - [함수](/core/function.md)
     - [closure](/core/closure.md)
     - [이벤트 버블링과 캡쳐링와 이벤트 위임](/core/event_bubble_capture.md)
+    - [Promise](/core/promise/README.md)
 
 - 도구
     - [jshint](/tools/jshint.md)
