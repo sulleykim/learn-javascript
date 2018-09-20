@@ -27,3 +27,4 @@
         - [버블](/algorithmus/sorting/bubble)
         - [선택](/algorithmus/sorting/selection)
         - [삽입](/algorithmus/sorting/insertion)
+        - [쉘](/algorithmus/sorting/shell)
