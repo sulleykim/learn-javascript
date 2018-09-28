@@ -197,3 +197,73 @@ quickSort(arr, 0, arr.length - 1);
 
 console.log(arr);
 ```
+
+## 복습
+
+직접 손으로 단계별로 어떻게 스택에 데이터가 삽입되고 삭제되는지 살펴보면서 이해하도록 노력하였다.
+
+```javascript
+var Stack = function() {
+    this.data = [];
+}    
+
+Stack.prototype = (function() {
+
+    return {
+        push: function(ele) {
+            this.data.push(ele);
+        },
+        pop: function() {
+            return this.data.pop();
+        },
+        isEmpty: function() {
+            return this.data.length <= 0;
+        }
+    }
+}());
+
+function quickSort(arr, left, right) {
+    var lstack = new Stack(),
+        rstack = new Stack(),
+        pl, pr, left, right, temp;
+
+    lstack.push(left);
+    rstack.push(right);
+
+    while(!lstack.isEmpty()) { // 스택이 비어있지 않다면
+        pl = left = lstack.pop();
+        pr = right = rstack.pop();
+        x = arr[Math.floor((left + right) / 2)];
+        do {
+            while(arr[pl] < x) pl++;
+            while(arr[pr] > x) pr--;
+
+            if(pl <= pr) {
+                temp = arr[pl];
+                arr[pl] = arr[pr];
+                arr[pr] = temp;
+                pl++;
+                pr--;
+            }
+        } while(pl <= pr);
+
+        if(left < pr) {
+            lstack.push(left);
+            rstack.push(pr);
+        }
+
+        if(pl < right) {
+            lstack.push(pl);
+            rstack.push(right);
+        }
+    }
+}
+
+var arr = [1, 8, 7, 4, 5, 2, 6, 3, 9]; // 9
+
+console.log(arr);
+
+quickSort(arr, 0, arr.length - 1);
+
+console.log(arr);
+```
