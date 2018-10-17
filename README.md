@@ -11,11 +11,14 @@
     - [Promise](/core/promise/README.md)
 
 - 도구
-    - [jshint](/tools/jshint.md)
+    - [jshint](/tools/jshint.md/README.md)
 
 - 패턴
-    - [pub/sub pattern](/pattern/pubsub)
-    - [mvc pattern](/pattern/mvc)
+    - [pub/sub pattern](/pattern/pubsub/README.md)
+    - [mvc pattern](/pattern/mvc/README.md)
+
+- 기타
+    - [실시간 웹 애플리케이션](/etc/realtime/README.md)
 
 - 알고리즘
     - [기본 알고리즘](/algorithmus/basic.md)
