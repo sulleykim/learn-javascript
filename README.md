@@ -10,6 +10,9 @@
     - [이벤트 버블링과 캡쳐링와 이벤트 위임](/core/event_bubble_capture.md)
     - [Promise](/core/promise/README.md)
 
+- 성능
+    - [Reflow와 Repaint](/core/performance/ReflowRepaint.md)
+
 - 도구
     - [jshint](/tools/jshint.md/README.md)
 
