@@ -22,6 +22,7 @@
 
 - 기타
     - [실시간 웹 애플리케이션](/etc/realtime/README.md)
+    - [실시간 플랫폼 성능 향상](/etc/performance/README.md)
 
 - 알고리즘
     - [기본 알고리즘](/algorithmus/basic.md)
