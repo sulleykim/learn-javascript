@@ -14,7 +14,8 @@
     - [Reflow와 Repaint](/core/performance/ReflowRepaint.md)
 
 - 도구
-    - [jshint](/tools/jshint.md/README.md)
+    - [jshint](/tools/jshint/README.md)
+    - [webpack](tools/webpack/README.md)
 
 - 패턴
     - [pub/sub pattern](/pattern/pubsub/README.md)
