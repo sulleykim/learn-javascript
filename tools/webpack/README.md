@@ -341,6 +341,93 @@ import Utility from 'Utilities/utility';
 modules: ["node_modules"] // default
 modules: [path.resolve(__dirname, "src"), "node_modules"] // src/node_modules
 ```
+
+## Webpack Dev Server
+
+- `webpack-dev-server`: webpack 자체에서 제공하는 개발 서버이고 빠른 리로딩 기능 제공
+- `webpack-dev-middleware`: 서버가 이미 구성된 경우에는 webpack을 미들웨어로 구성하여 서버와 연결
+
+> 개인 프로젝트에는 시작하기 쉬운 webpack-dev-server 를 활용!
+
+### Webpack Dev Server
+
+- 페이지 자동고침을 제공하는 webpack 개발용 node.js 서버
+
+#### Options
+
+- `publicPath`: Webpack 으로 번들한 파일들이 위치하는 곳. default 값은 `/`
+
+```javascript
+// 항상 `/`를 앞뒤에 붙여야 한다
+publicPath: "/assets/"
+```
+
+- `contentBase`: 서버가 로딩할 static 파일 경로를 지정
+
+```javascript
+contentBase: path.join(__dirname, "public")
+contentBase: false
+```
+
+- `compress`: gzip 압축 방식을 이용하여 웹 자원의 사이즈를 줄인다.
+
+```javascript
+compress: true
+```
+
+## 기존 실습과 Dev 서버의 차이점
+
+기존 실습은 번들된 결과를 직접 로컬에서 확인하였지만, Webpack dev Server는 개발 서버 실행 이후에 `dist(번들링된 폴더)` 파일을 확인할 수 없다. 즉, 물리적인 결과 파일이 반환되지 않는다. 대신에 **결과물이 메모리에 들어가고 메모리에서 바로 브라우저에 올리게 된다.**
+
+## [부록] Path vs Public Path 소개
+
+- webpack dev server의 path, publicPath를 구분하기 위해 파악
+- output path와 public path 속성의 차이점 이해 필요
+
+```
+# Webpack 컴파일 시에 뜨는 로그
+Project is running at http://locahost:9000/
+webpack output is served from /dist/
+```
+
+- `output.path`: 번들링한 결과가 위치할 번들링 파일의 **절대 경로**
+- `output.publicPath`: 브라우저가 참고할 번들링 결과 **파일의 URL 주소를 지정**
+
+## Webpack Dev Middleware
+
+- 기존에 구성한 서버에 webpack 에서 컴파일한 파일을 전달하는 middleware wrapper
+- webpack에 설정한 파일을 변경시, 파일에 직접 변경 내역을 저장하지 않고 메모리 공간을 활용한다.
+- 따라서, 변경된 파일 내역을 파일 디렉토리 구조안에서는 확인이 불가능하다.
+
+## 꿀팁
+
+### 주요 명령어
+
+- `webpack`: 웹팩 빌드 기본 명령어(주요 개발용)
+- `webpack -p`: minification 기능이 들어간 빌드(주로 배포용)
+- `webpack -watch`: 개발에서 빌드할 파일의 변화를 감지
+- `webpack -d`: sourcemap 포함하여 빌드
+- `webpack --display-error-details`: error 발생시 디버깅 정보를 출력
+- `webpack --optimize-minimize --define process.env.NODE_ENV="'production'"`: 배포용
+
+### Sourcemap 활용
+
+- 브라우저에서 webpack으로 컴파일된 파일을 디버깅하기란 어려움
+- 따라서, 아래와 같이 source-map 설정을 추가하여 원래의 파일 구조에서 디버깅이 가능
+
+```javascript
+module.exports = {
+  // ...
+  devtool: '#inline-source-map'
+}
+```
+
+### Hot Module Replacement
+
+- 웹 앱에서 사용하는 JS 모듈들을 갱신 할때, 화면에 새로고침없이 뒷단에서 변경 및 삭제 기능을 지원
+
+### Vue Webpack.config.js 파일을 분석하는 것도 공부가 된다!
+
 ## 참고 자료
 
 - [Webpack 4 Tutorial: from 0 Conf to Production Mode](https://www.valentinog.com/blog/webpack-tutorial/)
