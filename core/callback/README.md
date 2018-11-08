@@ -41,10 +41,11 @@ console.log('3');
 2
 ```
 
-![콜 스택과 이벤트 큐](./images/callstack_eventqueue.jpg)
+![콜 스택과 이벤트 큐](https://user-images.githubusercontent.com/27342882/48203541-1cfc2700-e3ab-11e8-9bf2-56ccdc3ca0b2.JPG)
+
 ## 왜 자바스크립트는 비동기로 작동해야할까?
 
-![화면 예제](./images/callback1.jpg)
+![화면 예제](https://user-images.githubusercontent.com/27342882/48203525-12419200-e3ab-11e8-9844-d22a208313fe.JPG)
 
 ### 동기 방식으로 작동한다면?
 
