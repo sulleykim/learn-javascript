@@ -19,6 +19,7 @@
         - 상속에 대해서 설명하세요
         - 실행 컨텍스트의 실행 단계에 대해서 설명하세요
         - 콜백 함수는 무엇인가요?
+        - `apply()`와 `call()`의 차이는 무엇인가요?
         - `==` 연산자와 `===` 연산자의 차이는 무엇인가요?
         - delete 연산자는 무엇인가요?
         - 자바스크립트 성능 향상에 대해서 설명하세요.
@@ -55,7 +56,7 @@
     - [자바스크립트에 대하여](/core/about-javascript.md)
     - [변수](/core/variable.md)
     - [함수](/core/function.md)
-    - [closure](/core/closure.md)
+    - [closure](/core/closure/README.md)
     - [이벤트 버블링과 캡쳐링와 이벤트 위임](/core/event_bubble_capture.md)
     - [Promise](/core/promise/README.md)
 
