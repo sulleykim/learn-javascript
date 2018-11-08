@@ -1,6 +1,6 @@
 # 자바스크립트 핵심 배우기
 
-공부를 하면서 많은 블로그를 참고하였습니다.
+> 질문의 답변을 스스로 찾아보아요!
 
 ## 목차
 
@@ -34,6 +34,7 @@
             add(4)(3) // 7
             ```
         - 알고 있는 디자인 패턴에 대해서 설명하세요 (ex. MVC, MVP, MVVM, FLEX)
+        - 체이닝 패턴은 무엇이고 장, 단점에 대해서 설명하세요
 
     - 알고리즘 및 기타
         - 알고 있는 정렬 알고리즘을 설명하세요
@@ -57,6 +58,7 @@
     - [변수](/core/variable.md)
     - [함수](/core/function.md)
     - [closure](/core/closure/README.md)
+    - [콜백 함수에 대하여](/core/callback/README.md)
     - [이벤트 버블링과 캡쳐링와 이벤트 위임](/core/event_bubble_capture.md)
     - [Promise](/core/promise/README.md)
 
@@ -75,6 +77,7 @@
     - [실시간 웹 애플리케이션](/etc/realtime/README.md)
     - [실시간 플랫폼 성능 향상](/etc/performance/README.md)
     - [싱글 페이지 애플리케이션](/etc/spa/README.md)
+    - [MongoDB](/etc/database/mongodb/README.md)
 
 - 알고리즘
     - [기본 알고리즘](/algorithmus/basic.md)
