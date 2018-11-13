@@ -62,6 +62,9 @@
     - [이벤트 버블링과 캡쳐링와 이벤트 위임](/core/event_bubble_capture.md)
     - [Promise](/core/promise/README.md)
 
+- 새로운 자바스크립트(ES6 ~)
+    - [new Proxy](/es6/proxy/README.md)
+    
 - 성능
     - [Reflow와 Repaint](/core/performance/ReflowRepaint.md)
 
@@ -78,6 +81,7 @@
     - [실시간 플랫폼 성능 향상](/etc/performance/README.md)
     - [싱글 페이지 애플리케이션](/etc/spa/README.md)
     - [MongoDB](/etc/database/mongodb/README.md)
+    - [상태 패턴](/etc/store/README.md)
 
 - 알고리즘
     - [기본 알고리즘](/algorithmus/basic.md)
@@ -90,5 +94,7 @@
         - [버블](/algorithmus/sorting/bubble/README.md)
         - [선택](/algorithmus/sorting/selection/README.md)
         - [삽입](/algorithmus/sorting/insertion/README.md)
+        - [합병](/algorithmus/sorting/merge/README.md)
+        - [힙](/algorithmus/sorting/heap/README.md)
         - [쉘](/algorithmus/sorting/shell/README.md)
         - [퀵](/algorithmus/sorting/quick/README.md)
