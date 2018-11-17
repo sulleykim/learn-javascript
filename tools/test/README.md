@@ -15,9 +15,21 @@
 
 ## 테스트의 종류
 
-- TDD
-- BDD
+- TDD(테스트 자체에 집중)
+
+    TDD(Test Driven Development)는 Test를 통과하는 코드를 작성하자라는 모토로 개발을 진행하는 소프트웨어 개발 방법 중 하나입니다. 간단히 설명하면 구현해야할 기능 Test를 통과하는 코드를 간단하게 작성한 후, 그 코드를 표준에 맞는 좋은 코드로 변환(리펙토링)을 하는 방법입니다. 프로세스를 요약해본다면 아래와 같습니다.
+
+- BDD(비지니스 요구사항 집중)
+
+    행동 주도 개발(Behavior Driven Development, 이하 BDD)이란 TDD(Test Driven Development)에 DDD(Domain Driven Design)의 스타일(유비쿼터스 언어, 임베디드 도메인 전용 언어 등)을 적용하여 탄생한 소프트웨어 개발 방법의 하나이다.
 
 ## 자바스크립트 테스트 도구
 
 - [jasmine](/jasmine/README.md)
+
+## 참고 자료
+
+- [자스민으로 프론트엔드 테스트 코드 작성하기](http://blog.jeonghwan.net/tool/2017/03/28/jasmine.html)
+- [BDD](http://www.zdnet.co.kr/news/news_view.asp?artice_id=00000039170216)
+- [내맘대로 정리해보는 BDD, TDD](http://blog.ngenius.kr/2017/01/21/report-BDD-TDD-by-mystyle.html)
+- [BDD](https://blog.nuti.pe.kr/2018/07/14/bdd/)
