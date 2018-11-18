@@ -69,6 +69,7 @@
     - [Reflow와 Repaint](/core/performance/ReflowRepaint.md)
 
 - 도구
+    - [typescript](/typescrit/README.md)
     - [jshint](/tools/jshint/README.md)
     - [webpack](/tools/webpack/README.md)
     - [Test](/tools/test/README.md)
