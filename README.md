@@ -101,7 +101,3 @@
         - [힙](/algorithmus/sorting/heap/README.md)
         - [쉘](/algorithmus/sorting/shell/README.md)
         - [퀵](/algorithmus/sorting/quick/README.md)
-
-- 보일러플레이트
-    - [TypeScript & Express.js & lint & prettier](/boilerplate/ts-tslint-express/README.md)
-    - [Karma & webpack & Typescript로 테스트 개발 환경 구축하기](/tools/test/karma/webpackTsDev/README.md)
