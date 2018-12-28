@@ -133,3 +133,93 @@ console.log(result);
 ```
 
 `m >= n` 인 두 양의 정수 m과 n에 대해서 m이 n의 배수이면 `gcd(m, n) = n` 이고, 그렇지 않으면 `gcd(m, n) = gcd(n, m % n)`이다.
+
+### 문자열의 길이 계산
+
+```javascript
+/**
+ * @params {string} str
+ * @returns {number}
+ */
+function length(str) {
+    if (str == "") {
+        return 0;
+    } else {
+        return 1 + length(str.substring(1, str.length)); // 1번째 문자열 제외한 문자열 반환 "hello world" -> "ello world"
+    }
+}
+console.log(length("hello world"));
+```
+
+### 문자열의 프린트
+
+```javascript
+/**
+ * @params {string} str
+ * @returns {number}
+ */
+function printChars(str) {
+    if (str.length == 0) {
+        return;
+    } else {
+        console.log(str.charAt(0));
+        printChars(str.substring(1, str.length));
+    }
+}
+printChars("hello world");
+```
+
+### 문자열을 뒤집어 프린트
+
+```javascript
+/**
+ * @params {string} str
+ * @returns {number}
+ */
+function printCharsReverse(str) {
+    if (str.length == 0) {
+        return;
+    } else {
+        printCharsReverse(str.substring(1, str.length));
+        console.log(str.charAt(0));
+    }
+}
+printCharsReverse("hello world");
+```
+
+### 2진수로 변환하여 출력
+
+```javascript
+/**
+ * @params {number} n
+ * @returns {number}
+ */
+function printInBinary(n) {
+    if (n < 2) {
+        console.log(n);
+    } else {
+        printInBinary(Math.floor(n / 2));
+        console.log(Math.floor(n % 2));
+    }
+}
+printInBinary(6);
+```
+
+### 배열의 합 구하기
+
+```javascript
+/**
+ * @params {number} n
+ * @params {number[]} data
+ * @returns {number}
+ */
+function sum(n, data) {
+    if (n <= 0) {
+        return 0;
+    } else {
+        return sum(n - 1, data) + data[n - 1];
+    }
+}
+var arr = [1, 2, 3, 4];
+console.log(sum(arr.length, arr));
+```
