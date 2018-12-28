@@ -223,3 +223,163 @@ function sum(n, data) {
 var arr = [1, 2, 3, 4];
 console.log(sum(arr.length, arr));
 ```
+
+## 순환적 알고리즘 설계
+
+-   적어도 하나의 Base case, 즉 순환되지 않고 종료되는 case가 있어야 함
+-   모든 case는 결국 Base case로 수렴해야 함
+
+## 일반 함수를 재귀 호출로 변환하기
+
+### 순차 탐색
+
+-   일반 함수
+
+```javascript
+/**
+ * @params {number[]} data
+ * @params {number} target
+ * @returns {number}
+ */
+function search(data, target) {
+    var i,
+        len = data.length;
+    for (i = 0; i < len; i++) {
+        if (data[i] == target) return i;
+    }
+    return -1;
+}
+var arr = [1, 2, 3, 4];
+console.log(search(arr, 1));
+```
+
+-   재귀 호출
+
+```javascript
+/**
+ * @params {number[]} data
+ * @params {number} begin
+ * @params {number} end
+ * @params {number} target
+ * @returns {number}
+ */
+function search(data, begin, end, target) {
+    if (begin > end) {
+        return -1;
+    } else if (target == data[begin]) {
+        return begin;
+    } else {
+        return search(data, begin + 1, end, target);
+    }
+}
+var arr = [1, 2, 3, 4];
+console.log(search(arr, 0, arr.length, 1));
+```
+
+### 최대값 찾기
+
+-   일반 함수
+
+```javascript
+/**
+ * @params {number[]} data
+ * @returns {number}
+ */
+function findMax(data) {
+    var len = data.length;
+    if (len == 1) {
+        return data[0];
+    } else {
+        var max = arr[0];
+        for (var i = 1; i < len; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        return max;
+    }
+}
+var arr = [1, 2, 3, 4];
+console.log(findMax(arr));
+```
+
+-   재귀 호출
+
+```javascript
+/**
+ * @params {number[]} data
+ * @params {number} begin
+ * @params {number} end
+ * @returns {number}
+ */
+function findMax(data, begin, end) {
+    if (begin == end) {
+        return data[begin];
+    } else {
+        var middle = Math.floor((begin + end) / 2);
+        var max1 = findMax(data, begin, middle);
+        var max2 = findMax(data, middle + 1, end);
+        return Math.max(max1, max2);
+    }
+}
+var arr = [1, 2, 3, 4];
+console.log(findMax(arr, 0, arr.length - 1));
+```
+
+### 이진 검색
+
+-   일반 함수
+
+```javascript
+/**
+ * @params {number[]} data
+ * @params {number} begin
+ * @params {number} end
+ * @params {number} target
+ * @returns {number}
+ */
+function binarySearch(data, begin, end, target) {
+    var pl = begin,
+        pr = end;
+    do {
+        var pc = Math.floor((pl + pr) / 2);
+        if (data[pc] == target) {
+            return pc;
+        } else if (data[pc] < target) {
+            pl = pc + 1;
+        } else {
+            pr = pc - 1;
+        }
+    } while (pl <= pr);
+}
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log(binarySearch(arr, 0, arr.length - 1, 1));
+```
+
+-   재귀 호출
+
+```javascript
+/**
+ * @params {number[]} data
+ * @params {number} begin
+ * @params {number} end
+ * @params {number} target
+ * @returns {number}
+ */
+function binarySearch(data, begin, end, target) {
+    if (begin > end) {
+        return -1;
+    } else {
+        var mid = Math.floor((begin + end) / 2);
+        if (data[mid] == target) {
+            return mid;
+        } else if (data[mid] < target) {
+            return binarySearch(data, mid + 1, end, target);
+        } else {
+            return binarySearch(data, begin, mid - 1, target);
+        }
+    }
+}
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log(binarySearch(arr, 0, arr.length - 1, 1));
+```
