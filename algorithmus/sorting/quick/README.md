@@ -7,26 +7,19 @@
 ```javascript
 function partition(arr) {
     var len = arr.length,
-    pl = 0,
-    pr = len - 1,
-    x = arr[Math.floor(len / 2)], temp;
+        pl = 0,
+        pr = len - 1,
+        x = arr[Math.floor(len / 2)],
+        temp;
 
     do {
-        while(arr[pl] < x) pl++;
-        while(arr[pr] > x) pr--;
+        while (arr[pl] < x) pl++;
+        while (arr[pr] > x) pr--;
 
-        if(pl <= pr) { // while문에서 한번 이미 거르는데 이게 꼭 필요한 것인가..
-            /*
-                교환 이후에 그 다음 연산을 위해 pl, pr을 옮겨주기 위해서 후위 연산자를 사용한다.
-            */
-            // swap(arr, pl++, pr--);
-            temp = arr[pl];
-            arr[pl] = arr[pr];
-            arr[pr] = temp;
-            pl++;
-            pr--;
+        if (pl <= pr) {
+            swap(arr, pl++, pr--);
         }
-    } while(pl <= pr);
+    } while (pl <= pr);
 
     function swap(arr, idx1, idx2) {
         var temp = arr[idx1];
@@ -55,72 +48,15 @@ function quickSort(arr, left, right) {
         x = arr[Math.floor((pl + pr) / 2)];
 
     do {
-        while(arr[pl] < x) pl++;
-        while(arr[pr] > x) pr--;
+        while (arr[pl] < x) pl++;
+        while (arr[pr] > x) pr--;
 
-        if(pl <= pr) { // while문에서 한번 이미 거르는데 이게 꼭 필요한 것인가..
-            /*
-                교환 이후에 그 다음 연산을 위해 pl, pr을 옮겨주기 위해서 후위 연산자를 사용한다.
-            */
-            // swap(arr, pl++, pr--);
-            temp = arr[pl];
-            arr[pl] = arr[pr];
-            arr[pr] = temp;
-            pl++;
-            pr--;
+        if (pl <= pr) {
+            swap(arr, pl++, pr--);
         }
-    } while(pl <= pr);
-
-    /*
-        이부분이 이해가 안된다. 왜 조건이 이렇게 되는걸까? 제일 처음에 볼때는 이해가 안되었는데. 생각해보니 피벗을 기준으로
-        교환과정을 완료하면 결국엔 pl과 pr 위치가 바뀐다. pl = 0, pr = 배열 길이 - 1이지만 마지막 연산을 완료하면 pr이 pl보다 먼저
-        오게 된다. 그리고 left과 right는 초기값을 가지게 된다. 대략 그림은 아래와 같다.
-        left <------> pr <--> pl <------> right 그래서 아래와 같은 조건절이 나오는게 아닌가? 라는 생각이 든다.
-    */
-    if(left < pr) quickSort(arr, left, pr);
-    if(pl < right) quickSort(arr, pl, right);
-}
-
-
-var arr = [1, 8, 7, 4, 5, 2, 6, 3, 9]; // 9
-
-console.log(arr);
-
-quickSort(arr, 0, arr.length - 1);
-
-console.log(arr);
-```
-
-```javascript
-function quickSort(arr, left, right) {
-    var pl = left,
-        pr = right,
-        x = arr[Math.floor((pl + pr) / 2)],
-        temp, i, str = "";
-
-    str += `arr[${left}] ~ arr[${right}] : {`;
-
-    for(i = left; i < right; i++) {
-        str += arr[i] + " , ";    
-    }
-    str += `${right}}\n`;
-
-    console.log(str);
-
-    do {
-        while(arr[pl] < x) pl++;
-        while(arr[pr] > x) pr--;
-
-        if(pl <= pr) {
-            temp = arr[pl];
-            arr[pl] = arr[pr];
-            arr[pr] = temp;
-            pl++;
-            pr--;
-        }
-    } while(pl <= pr);
-    if(left < pr) quickSort(arr, left, pr);
-    if(pl < right) quickSort(arr, pl, right);
+    } while (pl <= pr);
+    if (left < pr) quickSort(arr, left, pr);
+    if (pl < right) quickSort(arr, pl, right);
 }
 
 var arr = [1, 8, 7, 4, 5, 2, 6, 3, 9]; // 9
@@ -149,110 +85,45 @@ Stack.prototype = {
     isEmpty: function() {
         return this.data.length <= 0;
     }
-}
+};
 
 function quickSort(arr, left, right) {
     var lstack = new Stack(), // 나눌 범위의 왼쪽 끝 요소의 인덱스를 저장하는 스택
         rstack = new Stack(), // 나눌 범위의 오른쪽 끝 요소의 인덱스를 저장하는 스택
-        pl, left, pr, right, temp;
+        pl,
+        left,
+        pr,
+        right,
+        temp;
 
     lstack.push(left);
     rstack.push(right);
 
-    while(lstack.isEmpty() != true) { // 스택이 비어있지 않으면
+    while (lstack.isEmpty() != true) {
+        // 스택이 비어있지 않으면
         pl = left = lstack.pop();
         pr = right = rstack.pop();
         x = arr[Math.floor((left + right) / 2)];
 
         do {
-            while(arr[pl] < x) pl++;
-            while(arr[pr] > x) pr--;
+            while (arr[pl] < x) pl++;
+            while (arr[pr] > x) pr--;
 
-            if(pl <= pr) {
+            if (pl <= pr) {
                 temp = arr[pl];
                 arr[pl] = arr[pr];
                 arr[pr] = temp;
                 pl++;
                 pr--;
             }
-        } while(pl <= pr);
+        } while (pl <= pr);
 
-        if(left < pr) {
+        if (left < pr) {
             lstack.push(left);
             rstack.push(pr);
         }
 
-        if(pl < right) {
-            lstack.push(pl);
-            rstack.push(right);
-        }
-    }
-}
-
-var arr = [1, 8, 7, 4, 5, 2, 6, 3, 9]; // 9
-
-console.log(arr);
-
-quickSort(arr, 0, arr.length - 1);
-
-console.log(arr);
-```
-
-## 복습
-
-직접 손으로 단계별로 어떻게 스택에 데이터가 삽입되고 삭제되는지 살펴보면서 이해하도록 노력하였다.
-
-```javascript
-var Stack = function() {
-    this.data = [];
-}    
-
-Stack.prototype = (function() {
-
-    return {
-        push: function(ele) {
-            this.data.push(ele);
-        },
-        pop: function() {
-            return this.data.pop();
-        },
-        isEmpty: function() {
-            return this.data.length <= 0;
-        }
-    }
-}());
-
-function quickSort(arr, left, right) {
-    var lstack = new Stack(),
-        rstack = new Stack(),
-        pl, pr, left, right, temp;
-
-    lstack.push(left);
-    rstack.push(right);
-
-    while(!lstack.isEmpty()) { // 스택이 비어있지 않다면
-        pl = left = lstack.pop();
-        pr = right = rstack.pop();
-        x = arr[Math.floor((left + right) / 2)];
-        do {
-            while(arr[pl] < x) pl++;
-            while(arr[pr] > x) pr--;
-
-            if(pl <= pr) {
-                temp = arr[pl];
-                arr[pl] = arr[pr];
-                arr[pr] = temp;
-                pl++;
-                pr--;
-            }
-        } while(pl <= pr);
-
-        if(left < pr) {
-            lstack.push(left);
-            rstack.push(pr);
-        }
-
-        if(pl < right) {
+        if (pl < right) {
             lstack.push(pl);
             rstack.push(right);
         }

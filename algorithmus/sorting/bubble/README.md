@@ -6,16 +6,17 @@
 
 ```javascript
 function bubbleSort(arr) {
-    var i, j,
+    var i,
+        j,
         len = arr.length,
         temp,
         count = 0;
 
-    for(i = 0; i < len - 1; i++) {
-        for(j = 0; j < len; j++) {
+    for (i = 0; i < len - 1; i++) {
+        for (j = 0; j < len; j++) {
             count++;
-            if(arr[j] < arr[j - 1]) {
-                temp = arr[j]; 
+            if (arr[j] < arr[j - 1]) {
+                temp = arr[j];
                 arr[j] = arr[j - 1];
                 arr[j - 1] = temp;
             }
@@ -24,7 +25,7 @@ function bubbleSort(arr) {
     console.log(count); // 42
 }
 
-var arr = [22,5,11,32,120,68,70];
+var arr = [22, 5, 11, 32, 120, 68, 70];
 
 console.log(arr);
 
@@ -36,16 +37,17 @@ console.log(arr);
 
 ```javascript
 function bubbleSort(arr) {
-    var i, j,
+    var i,
+        j,
         len = arr.length,
         temp,
         count = 0;
 
-    for(i = 0; i < len - 1; i++) {
-        for(j = len - 1; j > i; j--) {
+    for (i = 0; i < len - 1; i++) {
+        for (j = len - 1; j > i; j--) {
             count++;
-            if(arr[j] < arr[j - 1]) {
-                temp = arr[j]; 
+            if (arr[j] < arr[j - 1]) {
+                temp = arr[j];
                 arr[j] = arr[j - 1];
                 arr[j - 1] = temp;
             }
@@ -55,7 +57,7 @@ function bubbleSort(arr) {
     console.log(count); // 21
 }
 
-var arr = [22,5,11,32,120,68,70];
+var arr = [22, 5, 11, 32, 120, 68, 70];
 
 console.log(arr);
 
@@ -69,16 +71,17 @@ console.log(arr);
 
 ```javascript
 function bubbleSort(arr) {
-    var i, j,
+    var i,
+        j,
         temp,
         count = 0,
         len = arr.length;
 
-    for(i = len; i > 0; i--) {
-        for(j = 1; j < i; j++) {
+    for (i = len; i > 0; i--) {
+        for (j = 1; j < i; j++) {
             count++;
-            if(arr[j - 1] > arr[j]) {
-                temp = arr[j]; 
+            if (arr[j - 1] > arr[j]) {
+                temp = arr[j];
                 arr[j] = arr[j - 1];
                 arr[j - 1] = temp;
             }
@@ -88,7 +91,7 @@ function bubbleSort(arr) {
     console.log(count);
 }
 
-var arr = [22,5,11,32,120,68,70];
+var arr = [22, 5, 11, 32, 120, 68, 70];
 
 console.log(arr);
 
@@ -100,40 +103,41 @@ console.log(arr);
 
 ```javascript
 function bubbleSort(arr) {
-    var i, j, k,
+    var i,
+        j,
+        k,
         len = arr.length,
         temp,
         count = 0,
         exchange = 0,
         str = "";
 
-    for(i = 0; i < len - 1; i++) {
+    for (i = 0; i < len - 1; i++) {
         str += "패스" + (i + 1) + ":\n";
-        for(j = len; j > i; j--) {
+        for (j = len; j > i; j--) {
             count++;
 
-            for(k = 0; k < len; k++) {
+            for (k = 0; k < len; k++) {
                 str += " " + arr[k] + "   ";
             }
-            
-            if(arr[j] < arr[j - 1]) {
-                temp = arr[j]; 
+
+            if (arr[j] < arr[j - 1]) {
+                temp = arr[j];
                 arr[j] = arr[j - 1];
                 arr[j - 1] = temp;
                 exchange++;
             }
-            
 
             str += "\n";
         }
     }
-    
+
     console.log(str);
     console.log("비교를 " + count + "회 했습니다.");
     console.log("교환을 " + exchange + "회 했습니다.");
 }
 
-var arr = [6,4,3,7,1,9,8];
+var arr = [6, 4, 3, 7, 1, 9, 8];
 
 console.log(arr);
 
@@ -147,28 +151,30 @@ console.log(arr);
 
 ```javascript
 function bubbleSort(arr) {
-    var i, j,
+    var i,
+        j,
         len = arr.length,
         temp,
-        exchange, count = 0;
+        exchange,
+        count = 0;
 
-    for(i = 0; i < len - 1; i++) {
+    for (i = 0; i < len - 1; i++) {
         exchange = 0;
-        for(j = len - 1; j > i; j--) {
+        for (j = len - 1; j > i; j--) {
             count++;
-            if(arr[j - 1] > arr[j]) {
-                temp = arr[j]; 
+            if (arr[j - 1] > arr[j]) {
+                temp = arr[j];
                 arr[j] = arr[j - 1];
                 arr[j - 1] = temp;
                 exchange++;
             }
         }
-        if(exchange == 0) break;
+        if (exchange == 0) break;
     }
     console.log(count);
 }
 
-var arr = [22,5,11,32,120,68,70];
+var arr = [22, 5, 11, 32, 120, 68, 70];
 
 console.log(arr);
 
@@ -184,14 +190,17 @@ console.log(arr);
 function bubbleSort(arr) {
     var k = 0, // a[k]보다 앞쪽은 이미 정렬된 상태 -> 더이상 검사를 하지 않아도 된다.
         len = arr.length,
-        last, j, temp, count = 0;
+        last,
+        j,
+        temp,
+        count = 0;
 
-    while(k < len - 1) {
+    while (k < len - 1) {
         last = len - 1; // 왜 필요할까.. -> 이미 정렬이 완료된 경우 while문을 빠져나가기 위해서
-        for(j = len - 1; j > k; j--) {
+        for (j = len - 1; j > k; j--) {
             count++;
-            if(arr[j - 1] > arr[j]) {
-                temp = arr[j]; 
+            if (arr[j - 1] > arr[j]) {
+                temp = arr[j];
                 arr[j] = arr[j - 1];
                 arr[j - 1] = temp;
                 last = j; // 이미 정렬된 상태를 찾기 위한 변수
@@ -202,96 +211,7 @@ function bubbleSort(arr) {
     console.log(count);
 }
 
-var arr = [22,5,11,32,120,68,70];
-
-console.log(arr);
-
-bubbleSort(arr);
-console.log(arr);
-```
-
-### 복습
-
-#### 기본 예제
-
-```javascript
-function bubbleSort(arr) {
-    var i, j, count = 0, len = arr.length, temp;
-
-    for(i = 0; i < len - 1; i++) {
-        for(j = len - 1; j > i; j--) {
-            count++;
-            if(arr[j - 1] > arr[j]) {
-                temp = arr[j];
-                arr[j] = arr[j - 1];
-                arr[j - 1] = temp;
-            }
-        }
-    }
-    console.log(count); 
-}
-
-var arr = [22,5,11,32,120,68,70];
-
-console.log(arr);
-
-bubbleSort(arr);
-console.log(arr);
-```
-
-#### 개선1
-
-```javascript
-function bubbleSort(arr) {
-    var i, j, count = 0, len = arr.length, temp, exchange = 0;
-
-    for(i = 0; i < len - 1; i++) {
-        exchange = 0;
-        for(j = len - 1; j > i; j--) {
-            count++;
-            if(arr[j - 1] > arr[j]) {
-                temp = arr[j];
-                arr[j] = arr[j - 1];
-                arr[j - 1] = temp;
-                exchange++;
-            }
-        }
-        if(exchange == 0) break;
-    }
-    console.log(count); 
-}
-
-var arr = [22,5,11,32,120,68,70];
-
-console.log(arr);
-
-bubbleSort(arr);
-console.log(arr);
-```
-
-#### 개선2
-
-```javascript
-function bubbleSort(arr) {
-    var k = 0, // arr[k] 앞에 있는 것들은 이미 정렬됨!
-        len = arr.length, j, temp;
-
-    while(k < len - 1) {
-        var last = len - 1; // while문을 빠져나오기 위해서, 교환이 되지 않는 경우
-        
-        for(j = len - 1; j > k; j--) {
-            if(arr[j] < arr[j - 1]) {
-                temp = arr[j];
-                arr[j] = arr[j - 1];
-                arr[j - 1] = temp;
-                last = j;
-            }
-        }
-        k = last;
-    }
-}
-
-var arr = [22,5,11,32,120,68,70];
+var arr = [22, 5, 11, 32, 120, 68, 70];
 
 console.log(arr);
 

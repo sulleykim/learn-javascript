@@ -8,11 +8,9 @@
 
 ### 스택 만들기 (기본)
 
-자바스크립트에서 해당 방법은 장점이 없을 것 같지만 연습삼아 작성해본다. 
-
 ```javascript
 var Stack = (function() {
-    // private 
+    // private
 
     /**@description constructor
      * @param {Number} max 최대 용량
@@ -22,7 +20,7 @@ var Stack = (function() {
         this.arr = [];
         this.max = max;
         this.ptr = 0;
-    }
+    };
 
     // public
     Stack.prototype = {
@@ -32,11 +30,11 @@ var Stack = (function() {
          */
         push: function(data) {
             try {
-                if(this.ptr >= this.max) {
+                if (this.ptr >= this.max) {
                     throw "용량이 가득 참";
                 }
-                return this.arr[this.ptr++] = data;
-            } catch(e) {
+                return (this.arr[this.ptr++] = data);
+            } catch (e) {
                 console.error(e);
             }
         },
@@ -45,11 +43,11 @@ var Stack = (function() {
          */
         pop: function() {
             try {
-                if(this.ptr <= 0) {
+                if (this.ptr <= 0) {
                     throw "더 이상 삭제 할 수 없습니다.";
                 }
                 return this.arr[--this.ptr];
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
             }
         },
@@ -58,11 +56,11 @@ var Stack = (function() {
          */
         peek: function() {
             try {
-                if(this.ptr <= 0) {
+                if (this.ptr <= 0) {
                     throw "반환 데이터가 없습니다.";
                 }
                 return this.arr[this.ptr - 1];
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
             }
         },
@@ -72,8 +70,8 @@ var Stack = (function() {
          */
         indexOf: function(data) {
             var i;
-            for(i = 0; i < this.ptr; i++) {
-                if(this.arr[i] == data) {
+            for (i = 0; i < this.ptr; i++) {
+                if (this.arr[i] == data) {
                     return i;
                 }
             }
@@ -93,7 +91,7 @@ var Stack = (function() {
             return this.max;
         },
         /**@description 스택을 비어있는가?
-         * @return {Boolean} 
+         * @return {Boolean}
          */
         isEmpty: function() {
             return this.ptr <= 0;
@@ -113,26 +111,26 @@ var Stack = (function() {
     };
 
     return Stack;
-}());
+})();
 ```
 
 ### 스택 만들기 (자바스크립트 배열 메서드 활용)
 
 ```javascript
 var Stack = (function() {
-    // private 
+    // private
 
     // public
     var Stack = function() {
         this.arr = [];
-    }
+    };
 
     // public
     Stack.prototype = {
         /**@description 스택에 데이터를 밀어넣는 메서드
-            * @param {Number}
-            * @return {Number}
-            */
+         * @param {Number}
+         * @return {Number}
+         */
         push: function(data) {
             /*
                 자바스크립트 배열은 push() 메서드 활용시 유동적으로 크기가 증가하므로 
@@ -140,63 +138,63 @@ var Stack = (function() {
             */
             try {
                 return this.arr.push(data);
-            } catch(e) {}
+            } catch (e) {}
         },
         /**@description 스택에 데이터를 제거하는 메서드
-            * @return {Number}
-            */
+         * @return {Number}
+         */
         pop: function() {
             try {
-                if(this.size() <= 0) {
+                if (this.size() <= 0) {
                     throw "더 이상 삭제 할 수 없습니다.";
                 }
                 return this.arr.pop();
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
             }
         },
         /**@description 스택에 꼭대기에 있는 데이터 반환
-            * @return {Number}
-            */
+         * @return {Number}
+         */
         peek: function() {
             try {
-                if(this.size() <= 0) {
+                if (this.size() <= 0) {
                     throw "반환 데이터가 없습니다.";
                 }
                 return this.arr[this.size() - 1];
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
             }
         },
         /**@description 스택에서 data 찾아서 반환(없으면 -1)
-            * @param {Number}
-            * @return {Number}
-            */
+         * @param {Number}
+         * @return {Number}
+         */
         indexOf: function(data) {
             var i;
-            for(i = 0; i < this.size(); i++) {
-                if(this.arr[i] == data) {
+            for (i = 0; i < this.size(); i++) {
+                if (this.arr[i] == data) {
                     return i;
                 }
             }
             return -1;
         },
         /**@description 스택을 비움
-            * @return {void}
-            */
+         * @return {void}
+         */
         clear: function() {
             this.arr = [];
         },
         /**@description 스택 용량
-            * @return {Number}
-            */
+         * @return {Number}
+         */
         size: function() {
             return this.arr.length;
         }
     };
 
     return Stack;
-}());
+})();
 
 // Test Case
 

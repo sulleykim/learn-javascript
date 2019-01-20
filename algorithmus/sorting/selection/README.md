@@ -4,13 +4,16 @@
 
 ```javascript
 function selectionSort(arr) {
-    var len = arr.length, i, j;
+    var len = arr.length,
+        i,
+        j;
 
-    for(i = 0; i < len - 1; i++) {
+    for (i = 0; i < len - 1; i++) {
         var min = i; // i번째를 임시로 최소값이라고 가정한다. (일종의 포인터 역할은 한다)
 
-        for(j = i + 1; j < len; j++) { // i + 1보다 큰 요소를 검사하면서 최소값 찾음
-            if(arr[j] < arr[min]) {
+        for (j = i + 1; j < len; j++) {
+            // i + 1보다 큰 요소를 검사하면서 최소값 찾음
+            if (arr[j] < arr[min]) {
                 min = j;
             }
         }
@@ -20,34 +23,7 @@ function selectionSort(arr) {
     }
 }
 
-var arr = [22,5,11,32,120,68,70];
-
-console.log(arr);
-
-selectionSort(arr);
-console.log(arr);
-```
-
-## 복습
-
-```javascript
-function selectionSort(arr) {
-    var i, j, len = arr.length, temp;
-
-    for(i = 0; i < len - 1; i++) {
-        var min = i; // 일종의 포인터 해당 자리에 찾은 최소값이 위치
-        for(j = i + 1; j < len; j++) {
-            if(arr[min] > arr[j]) {
-                min = j;
-            }
-        }
-        temp = arr[i];
-        arr[i] = arr[min];
-        arr[min] = temp;
-    }
-}
-
-var arr = [22,5,11,32,120,68,70];
+var arr = [22, 5, 11, 32, 120, 68, 70];
 
 console.log(arr);
 

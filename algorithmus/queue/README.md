@@ -10,7 +10,6 @@
 
 ```javascript
 var Queue = (function() {
-
     /**@description constructor
      * @param {Number} max 최대 용량
      * @return {void}
@@ -23,31 +22,32 @@ var Queue = (function() {
 
     Queue.prototype = {
         /**@description 데이터를 넣는 작업
-         * @param {Number} data 
+         * @param {Number} data
          * @return {void}
          */
         enqueue: function(data) {
             try {
-                if(this.ptr >= this.max) {
+                if (this.ptr >= this.max) {
                     throw "용량이 가득참";
                 }
                 this.arr[this.ptr++] = data;
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
             }
         },
-        /**@description 데이터를 삭제하는 작업 
+        /**@description 데이터를 삭제하는 작업
          * @return {Number} data 반환 데이터
          */
         dequeue: function() {
-            var data = this.arr[0], i;
+            var data = this.arr[0],
+                i;
 
             try {
-                if(this.ptr <= 0) {
+                if (this.ptr <= 0) {
                     throw "더 이상 삭제 할 수 없습니다.";
                 }
 
-                for(i = 0; i < this.ptr - 1; i++) {
+                for (i = 0; i < this.ptr - 1; i++) {
                     this.arr[i] = this.arr[i + 1];
                 }
 
@@ -55,18 +55,18 @@ var Queue = (function() {
                 --this.ptr;
 
                 return data;
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
             }
         }
-    }
+    };
 
     return Queue;
-}());
+})();
 
 var queue = new Queue(5);
 
-for(var i = 1;i <= 5; i++) {
+for (var i = 1; i <= 5; i++) {
     queue.enqueue(i);
 }
 
@@ -88,47 +88,47 @@ var Queue = (function() {
 
     Queue.prototype = {
         /**@description 데이터를 넣는 작업
-         * @param {Number} data 
+         * @param {Number} data
          * @return {void}
          */
         enqueue: function(data) {
             try {
                 this.arr.push(data);
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
             }
         },
-        /**@description 데이터를 삭제하는 작업 
+        /**@description 데이터를 삭제하는 작업
          * @return {Number} data 반환 데이터
          */
         dequeue: function() {
             try {
-                if(this.size() <= 0) {
+                if (this.size() <= 0) {
                     throw "더 이상 삭제 할 수 없습니다.";
                 }
                 return this.arr.shift();
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
             }
         },
-        /**@description 현재 데이터 크기 
+        /**@description 현재 데이터 크기
          * @return {Number} 반환 데이터
          */
         size: function() {
             return this.arr.length;
         }
-    }
+    };
 
     return Queue;
-}());
+})();
 ```
 
 ### 링 버퍼로 큐 만들기
 
 이번에는 배열 요소를 앞으로 옮기지 않는 큐를 구현합니다. 이를 위해 사용하는 자료구조가 링 버퍼입니다. 링 버퍼는 배열의 처음이 끝과 연결되어있는 자료구조입니다. 논리적으로 앞, 뒤를 구분하기 위해서 `front`와 `rear`를 사용합니다.
 
-- 프런트: 맨 처음 요소의 인덱스
-- 리어: 맨 끝 요소의 하나 뒤의 인덱스(다음 요소를 인큐할 위치를 미리 지정)
+-   프런트: 맨 처음 요소의 인덱스
+-   리어: 맨 끝 요소의 하나 뒤의 인덱스(다음 요소를 인큐할 위치를 미리 지정)
 
 ```javascript
 var Queue = (function() {
@@ -146,7 +146,7 @@ var Queue = (function() {
 
     Queue.prototype = {
         /**@description 데이터를 넣는 작업
-         * @param {Number} data 
+         * @param {Number} data
          * @return {Number}
          */
         enqueue: function(data) {
@@ -184,7 +184,7 @@ var Queue = (function() {
                     this.front = 0;
                 }
 
-                return x;         
+                return x;
             } catch(e) {
                 console.error(e);
             }
@@ -210,7 +210,7 @@ var Queue = (function() {
         indexOf: function(x) {
             var i, idx;
             for(i = 0; i < num; i++) {
-                idx = (i + front) % max; // 이런거는 어떻게 바로 도출이 가능할까..
+                idx = (i + front) % max;
                 if(this.arr[idx] == x) {
                     return idx;
                 }
@@ -249,12 +249,12 @@ do {
     arr[cnt++ % N] = parseInt(prompt()); // cnt++ % N을 통해서 계속 인덱스 0 ~ 10을 순환
     console.log("계속할까요?");
     retry = parseInt(prompt());
-} while(retry == 1);
+} while (retry == 1);
 
 var i = cnt - N; // 순환된 경우가 있는가 확인
-if(i < 0) i = 0; // 순환된 경우가 없으므로 0부터 출력해도 된다.
+if (i < 0) i = 0; // 순환된 경우가 없으므로 0부터 출력해도 된다.
 
-for(; i < cnt; i++) {
+for (; i < cnt; i++) {
     console.log(i + 1, a[i % N]);
 }
 ```
