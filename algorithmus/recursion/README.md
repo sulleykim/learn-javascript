@@ -383,3 +383,84 @@ function binarySearch(data, begin, end, target) {
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 console.log(binarySearch(arr, 0, arr.length - 1, 1));
 ```
+
+### Counting Cells in a Blob
+
+![Counting Cells in a Blob](https://user-images.githubusercontent.com/27342882/51505319-3a2c8780-1e29-11e9-9696-029bbfe08f9b.JPG)
+
+-   Binary 이미지
+-   각 픽셀은 background pixel 이거나 혹은 image pixel
+-   서로 연결된 image pixel들의 집합을 blob이라고 부름
+-   상하좌우 및 대각방향으로도 연결된 것으로 간주
+
+![Counting Cells in a Blob](https://user-images.githubusercontent.com/27342882/51505454-d191da80-1e29-11e9-955f-a58496ffa396.JPG)
+
+-   입력
+    -   `N * N` 크기의 2차원 그리드(grid)
+    -   하나의 좌표 (x, y)
+-   출력
+    -   픽셀 (x, y)가 포함된 blob의 크기
+    -   (x, y)가 어떤 blob에도 속하지 않는 경우에는 0
+
+#### Recursive Thinking
+
+-   현재 픽셀이 속한 blob의 크기를 카운트하려면
+    -   현재 픽셀이 image color가 아니라면
+        -   0을 반환한다
+    -   현재 픽셀이 image color라면
+        -   먼저 현재 픽셀을 카운트한다 (count = 1)
+        -   현재 픽셀이 중복 카운트되는 것을 방지하기 위해 다른 색으로 칠한다.
+        -   현재 픽실에 이웃한 모든 픽셀들에 대해서
+            -   그 픽셀이 속한 blob의 크기를 카운트하여 카운터에 더한다.
+        -   카운터를 반환한다.
+
+![Counting Cells in a Blob](https://user-images.githubusercontent.com/27342882/51505613-ecb11a00-1e2a-11e9-9118-ff1f42b11c8d.JPG)
+
+-   인접한 8개의 픽셀 각각에 대해서 순서대로 그 픽셀이 포함된 blob의 크기를 count 한다. 북, 북동, 동, 동남, ... 순서로 고려한다.
+
+```javascript
+var BlackGroundColor = 0,
+    ImageColor = 1,
+    AlreadyColor = 2,
+    grid = [
+        [1, 0, 0, 0, 0, 0, 0, 1],
+        [0, 1, 1, 0, 0, 1, 0, 0],
+        [1, 1, 0, 0, 1, 0, 1, 0],
+        [0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0, 1, 0, 0],
+        [0, 1, 0, 1, 0, 1, 0, 0],
+        [1, 0, 0, 0, 1, 0, 0, 1],
+        [0, 1, 1, 0, 0, 1, 1, 1]
+    ],
+    N = grid.length;
+
+/**
+ * @params {number} x
+ * @params {number} y
+ * @returns {number}
+ */
+function countCells(x, y) {
+    if (x < 0 || x >= N || y < 0 || y >= N) {
+        return 0;
+    } else if (grid[x][y] != ImageColor) {
+        return 0;
+    } else {
+        grid[x][y] = AlreadyColor;
+        return (
+            1 +
+            countCells(x - 1, y + 1) +
+            countCells(x, y + 1) +
+            countCells(x + 1, y + 1) +
+            countCells(x - 1, y) +
+            countCells(x + 1, y) +
+            countCells(x - 1, y - 1) +
+            countCells(x, y - 1) +
+            countCells(x + 1, y - 1)
+        );
+    }
+}
+```
+
+## 출처
+
+-   2015 봄학기 알고리즘(권오흠 - 유튜브)
