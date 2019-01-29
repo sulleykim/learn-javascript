@@ -107,17 +107,57 @@ const pendingOSTasks = [];
 const pedingOperations = [];
 
 function shouldContinue() {
-    // Check one: Any pending setTimeout, setInterval, setImmediate
-    // Check two: Any pending OS tasks?(Like server listening to port)
-    // Check three : Any pending long running oprations? (Like fs module)
-
-    return (
-        pendingTimers.length || pendingOSTasks.length || pedingOperations.length
-    );
+    // 첫번째, 대기중인 모든 setTimeout, setInterval, setImmediate
+    // 두번째, 대기중인 모든 OS 작업(포트를 수신하는 서버)
+    // 세번째, 대기중인 장시간 작업(fs 모듈)
+    return (pendingTimers.length || pendingOSTasks.length || pedingOperations.length);
 }
 
-while (shouldContinue()) {}
+while (shouldContinue()) {
+    // 1) Node는 대기중인 Timer를보고 호출 할 준비가 된 함수가 있는지 확인합니다.
+
+    // 2) 노드는 pendingOsTasks 및 보류중인 작업을 보고 관련 콜백을 호출합니다.
+
+    // 3) 실행을 일시 중지합니다.
+    // - 새로운 보류중인 OS 태스크가 완료되었습니다.
+    // - 새로운 보류중인 작업이 완료되었습니다.
+    // - 타이머가 곧 끝난다.
+
+    // 4) 대기중인 타이머 함수를 살펴본다.
+
+    // 5) 어떤 종료 이벤트를 다룬다.
+}
 // exit back to terminal
 ```
 
 `while` 루프의 본문은 이벤트 루프에서 반복적으로 실행될 것입니다. 우리는 이와 같은 실행을 **tick**이라고 칭합니다. 따라서 이벤트 루프가 노드 응용 프로그램 내부에서 실행될 때마다 이를 한 번의 **tick**이라고합니다.
+
+## 노드에 대한 오해
+
+때때로 노드에 관한 게시글을 읽다보면 **단일 스레드 기반**이라는 구문을 강조하는 것을 살펴볼 수 있습니다. 하지만 이것은 오해입니다. 물론, 우리는 앞서 그림을 통해서 이벤트 루프를 하나만 사용한다고 알 수 있었습니다. 이에 관한 진실은 훨씬 복잡합니다. 그래서 우리는 지금 노드가 **단일 스레드**인지에 대해서 조사해볼 것입니다. 실제로 노드으 이벤트 루프는 싱글 스레드가 맞습니다. 하지만 어떤 노드 프레임워크 및 라이브러리는 싱글 스레드가 아닐 수 있다는 사실이 중요합니다. 그렇습니다. 이것은 사용하는 상황에 따라서 달라집니다. 아래 예제를 살펴보자.
+
+```javascript
+const crypto = require("crypto");
+
+const start = Date.now();
+crypto.pbkdf2("a", "b", 100000, 512, "sha512", () => {
+    console.log("1:", Date.now() - start);
+});
+
+crypto.pbkdf2("a", "b", 100000, 512, "sha512", () => {
+    console.log("2:", Date.now() - start);
+});
+
+// 1: 1150
+// 2: 1159
+```
+
+예제 소스코드의 결과를 보면 예상 밖의 결과가 나오게 됩니다. 그 이유는 실행 시간 차이가 극심하게 나지 않기 때문입니다.
+
+![노드가 싱글스레드라면](https://user-images.githubusercontent.com/27342882/51911406-12cf4f00-2415-11e9-923a-04cccab878b7.JPG)
+
+우리는 두 함수가 순차적으로 실행되므로 대략 2초정도의 실행시간을 예상하였습니다. 하지만 실제 작동은 아래 그림과 같이 실행됩니다.
+
+![실제 작동](https://user-images.githubusercontent.com/27342882/51911568-896c4c80-2415-11e9-8a70-a04487efc3a9.JPG)
+
+우리가 현재까지 알고 있는 지식으로는 노드는 **싱글 스레드**이므로 실행 흐름이 하나뿐이여야 합니다. 하지만 그림에는 두 가지 함수가 동시에 실행되고 있는 것을 확인할 수 있습니다. 어떻게 된 것일까요?
